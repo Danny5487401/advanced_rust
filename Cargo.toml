@@ -1,0 +1,14 @@
+
+
+[workspace]
+members = [ "app","chapter01", "chapter02"]
+
+
+[workspace.dependencies]
+serde = { version = "1.0.201" }
+
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+authors = ["Danny"]
