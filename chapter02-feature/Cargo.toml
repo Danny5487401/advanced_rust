@@ -1,0 +1,13 @@
+[package]
+name = "chapter02"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+
+
+[features]
+print-a = []
+print-b = []
+full = ["print-a","print-b"]
+default = ["print-a"]

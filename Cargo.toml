@@ -1,11 +1,13 @@
 
 
 [workspace]
-members = [ "app","chapter01", "chapter02"]
+members = [ "app", "chapter01-log", "chapter02-feature", "chapter03-ownership"]
 
 
 [workspace.dependencies]
 serde = { version = "1.0.201" }
+tracing = "0.1.37"
+tracing-subscriber = "0.3.17"
 
 
 [workspace.package]

@@ -1,0 +1,14 @@
+[package]
+name = "chapter03-ownership"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+
+[[bin]]
+name = "ownership1"
+path = "src/ownership1.rs"
+
+
+[[bin]]
+name = "ownership2"
+path = "src/ownership2-copy.rs"

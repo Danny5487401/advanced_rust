@@ -2,7 +2,11 @@
 name = "chapter01"
 version = { workspace = true}
 edition = { workspace = true}
-authors = {workspace = true}
+authors = { workspace = true}
+
+
 
 [dependencies]
 serde = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
