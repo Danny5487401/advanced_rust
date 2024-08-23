@@ -1,0 +1,14 @@
+[package]
+name = "chapter05-memory"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+
+[[bin]]
+name = "memory1"
+path = "src/memory1-enum.rs"
+
+
+[[bin]]
+name = "memory2"
+path = "src/memory2-drop.rs"

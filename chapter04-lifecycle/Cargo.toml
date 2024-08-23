@@ -1,0 +1,9 @@
+[package]
+name = "chapter04-lifecycle"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+
+[[bin]]
+name = "lifecycle1"
+path = "src/lifecycle1.rs"

@@ -8,6 +8,9 @@
       <sourceFolder url="file://$MODULE_DIR$/chapter01-log/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/chapter02-feature/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/chapter03-ownership/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/chapter03-lifecycle/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/chapter04-lifecycle/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/chapter05-memory/src" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />
