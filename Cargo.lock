@@ -54,6 +54,13 @@ name = "chapter05-memory"
 version = "0.1.0"
 
 [[package]]
+name = "chapter06-type"
+version = "0.1.0"
+dependencies = [
+ "regex",
+]
+
+[[package]]
 name = "deranged"
 version = "0.3.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"

@@ -1,5 +1,3 @@
-mod r#memory2
-
 use std::collections::HashMap;
 use std::mem::size_of;
 

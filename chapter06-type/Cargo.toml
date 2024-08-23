@@ -1,0 +1,40 @@
+[package]
+name = "chapter06-type"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+
+[[bin]]
+name = "type1"
+path = "src/type1-paramiter.rs"
+
+
+[[bin]]
+name = "type2"
+path = "src/type2-func.rs"
+
+
+[[bin]]
+name = "type3"
+path = "src/type3-related-trait.rs"
+
+
+[[bin]]
+name = "type4"
+path = "src/type4-child.rs"
+
+[[bin]]
+name = "type5"
+path = "src/type5-dynamic-dispatch.rs"
+
+[[bin]]
+name = "type6"
+path = "src/type6-asref.rs"
+
+
+[[bin]]
+name = "type7"
+path = "src/type7-deref.rs"
+
+[dependencies]
+regex = { version = "1.10.6" }

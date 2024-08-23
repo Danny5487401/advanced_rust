@@ -12,3 +12,9 @@ path = "src/ownership1.rs"
 [[bin]]
 name = "ownership2"
 path = "src/ownership2-copy.rs"
+
+
+
+[[bin]]
+name = "ownership3"
+path = "src/ownership3-clone.rs"
