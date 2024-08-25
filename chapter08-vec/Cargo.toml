@@ -1,0 +1,27 @@
+[package]
+name = "chapter08-vec"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+
+
+
+
+
+[[bin]]
+name = "vec1"
+path = "src/vec1-slice.rs"
+
+
+[[bin]]
+name = "vec2"
+path = "src/vec2-slice.rs"
+
+
+[[bin]]
+name = "vec3"
+path = "src/vec3-string-slice.rs"
+
+[[bin]]
+name = "vec4"
+path = "src/vec4-box-slice.rs"

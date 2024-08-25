@@ -1,3 +1,15 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [macros 宏](#macros-%E5%AE%8F)
+  - [场景](#%E5%9C%BA%E6%99%AF)
+  - [宏 分类](#%E5%AE%8F-%E5%88%86%E7%B1%BB)
+    - [声明式宏](#%E5%A3%B0%E6%98%8E%E5%BC%8F%E5%AE%8F)
+    - [过程宏](#%E8%BF%87%E7%A8%8B%E5%AE%8F)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 
 
 

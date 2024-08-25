@@ -1,3 +1,13 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [lifecycle](#lifecycle)
+  - [静态生命周期 和 动态生命周期](#%E9%9D%99%E6%80%81%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F-%E5%92%8C-%E5%8A%A8%E6%80%81%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F)
+  - [生命周期标注（lifetime specifier）](#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E6%A0%87%E6%B3%A8lifetime-specifier)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # lifecycle
 
 ## 静态生命周期 和 动态生命周期

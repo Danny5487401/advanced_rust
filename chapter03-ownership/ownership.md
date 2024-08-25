@@ -1,3 +1,20 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [所有权](#%E6%89%80%E6%9C%89%E6%9D%83)
+  - [方案](#%E6%96%B9%E6%A1%88)
+  - [COPY](#copy)
+  - [Borrow （通过 & 或者 &mut）](#borrow-%E9%80%9A%E8%BF%87--%E6%88%96%E8%80%85-mut)
+    - [借用的生命周期及其约束](#%E5%80%9F%E7%94%A8%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%8F%8A%E5%85%B6%E7%BA%A6%E6%9D%9F)
+    - [可变借用 / 引用](#%E5%8F%AF%E5%8F%98%E5%80%9F%E7%94%A8--%E5%BC%95%E7%94%A8)
+  - [多个所有者](#%E5%A4%9A%E4%B8%AA%E6%89%80%E6%9C%89%E8%80%85)
+    - [Rc（Reference counter）](#rcreference-counter)
+      - [RefCell 实现 内部可变性](#refcell-%E5%AE%9E%E7%8E%B0-%E5%86%85%E9%83%A8%E5%8F%AF%E5%8F%98%E6%80%A7)
+    - [Arc（Atomic reference counter）](#arcatomic-reference-counter)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # 所有权
 
 值的生杀大权可以共享还是需要独占。
@@ -149,7 +166,8 @@ data1 中保存的 &data[0] 引用失效，导致内存安全问题。
 
 ### Rc（Reference counter）
 
-Rc 是一个只读的引用计数器,Rc 为了性能，使用的不是线程安全的引用计数器.
+Rc 是一个只读的引用计数器,Rc 为了性能，使用的不是线程安全的引用计数器.Rc<T> 是指向底层数据的不可变的引用，因此你无法通过它来修改数据，这也符合
+Rust 的借用规则：要么存在多个不可变借用，要么只能存在一个可变借用。
 
 初始化 RC
 
@@ -191,9 +209,16 @@ impl<T: ?Sized, A: Allocator + Clone> Clone for Rc<T, A> {
 
 #### RefCell 实现 内部可变性
 
+实际开发中我们往往需要对数据进行修改，这时单独使用 Rc<T> 无法满足我们的需求，需要配合其它数据类型来一起使用，例如内部可变性的
+RefCell<T> 类型以及互斥锁 Mutex<T>
+
 外部可变性（exterior mutability）: &mut 声明一个可变引用时，
 内部可变性: 对并未声明成 mut 的值或者引用，也想进行修改。也就是说，在编译器的眼里，值是只读的，但是在运行时，这个值可以得到可变借用，从而修改内部的数据，
 
 RefCell 也不是线程安全的，如果我们要在多线程中，使用内部可变性，Rust 提供了 Mutex 和 RwLock。
 
+要使用内部可变性时，首选 Cell，只有你的类型没有实现 Copy 时，才去选择 RefCell.
+
 ### Arc（Atomic reference counter）
+
+Arc 和 Rc 并没有定义在同一个模块，前者通过 use std::sync::Arc 来引入，后者通过 use std::rc::Rc。

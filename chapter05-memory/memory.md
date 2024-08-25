@@ -1,3 +1,17 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [memory](#memory)
+  - [enum、Option 以及 Result 的布局](#enumoption-%E4%BB%A5%E5%8F%8A-result-%E7%9A%84%E5%B8%83%E5%B1%80)
+  - [vec<T> 和 String](#vect-%E5%92%8C-string)
+  - [move and copy 内存模型](#move-and-copy-%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B)
+  - [drop 释放资源](#drop-%E9%87%8A%E6%94%BE%E8%B5%84%E6%BA%90)
+    - [Drop 使用场景](#drop-%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF)
+    - [Drop 的顺序](#drop-%E7%9A%84%E9%A1%BA%E5%BA%8F)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # memory
 
 ## enum、Option 以及 Result 的布局

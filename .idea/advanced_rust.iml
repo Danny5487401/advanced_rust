@@ -12,6 +12,8 @@
       <sourceFolder url="file://$MODULE_DIR$/chapter04-lifecycle/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/chapter05-memory/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/chapter06-type/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/chapter07-pointer/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/chapter08-vec/src" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />

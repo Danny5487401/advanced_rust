@@ -1,8 +1,26 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [**rust 背包客**](#rust-%E8%83%8C%E5%8C%85%E5%AE%A2)
+    - [第二章：feature 条件编译](#%E7%AC%AC%E4%BA%8C%E7%AB%A0feature-%E6%9D%A1%E4%BB%B6%E7%BC%96%E8%AF%91)
+    - [第三章：所有权](#%E7%AC%AC%E4%B8%89%E7%AB%A0%E6%89%80%E6%9C%89%E6%9D%83)
+    - [第四章：生命周期](#%E7%AC%AC%E5%9B%9B%E7%AB%A0%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F)
+    - [第五章：内存模型](#%E7%AC%AC%E4%BA%94%E7%AB%A0%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B)
+    - [第六章：类型](#%E7%AC%AC%E5%85%AD%E7%AB%A0%E7%B1%BB%E5%9E%8B)
+    - [第七章：指针](#%E7%AC%AC%E4%B8%83%E7%AB%A0%E6%8C%87%E9%92%88)
+    - [第八章：集合容器](#%E7%AC%AC%E5%85%AB%E7%AB%A0%E9%9B%86%E5%90%88%E5%AE%B9%E5%99%A8)
+    - [参考](#%E5%8F%82%E8%80%83)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # **rust 背包客**
 
 ![rust logo](rust-logo.png)
 
 [cargo workspace来管理多个package](workspace.md)
+
+## [第二章：feature 条件编译](chapter02-feature/feature.md)
 
 ## [第三章：所有权](chapter03-ownership/ownership.md)
 
@@ -36,7 +54,20 @@
     - [2.1 带关联类型的 trait:把错误类型延迟到 trait 实现时才决定](chapter06-type/src/type3-related-trait.rs)
 - 3 子类型多态（subtype polymorphism）
     - [3.1 静态分派 (static dispatching): 使用泛型函数](chapter06-type/src/type4-child.rs)
-    - 3.2 动态分派 (dynamic dispatching): 使用 trait object
+    - [3.2 动态分派 (dynamic dispatching): 使用 trait object](chapter06-type/src/type5-dynamic-dispatch.rs)
+- [4 AsRef 类型转换](chapter06-type/src/type6-asref.rs)
+- [5 Deref解引用运算符（*）的重载:直接访问 Vec<T> 的方法](chapter06-type/src/type7-deref.rs)
+
+## [第七章：指针](chapter07-pointer/pointer.md)
+
+- 1 COW(Clone on write 写时克隆) 智能指针
+- 2 mutexGuard 智能指针
+
+## [第八章：集合容器](chapter08-vec/vec.md)
+
+- [1 动态数组 Vector 的 切片引用&[T] 和 数组[T; n] 的 切片引用&[T] 对比](chapter08-vec/src/vec1-slice.rs)
+- [2 动态数组 Vector 和 数组 [T; n] 如何转化成 &[T]](chapter08-vec/src/vec2-slice.rs)
+- [3 String、&String 转换成 &str](chapter08-vec/src/vec3-string-slice.rs)
 
 ## 参考
 

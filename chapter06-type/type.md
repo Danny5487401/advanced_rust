@@ -1,3 +1,19 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [多态实现](#%E5%A4%9A%E6%80%81%E5%AE%9E%E7%8E%B0)
+- [unit()](#unit)
+- [用泛型实现 参数多态](#%E7%94%A8%E6%B3%9B%E5%9E%8B%E5%AE%9E%E7%8E%B0-%E5%8F%82%E6%95%B0%E5%A4%9A%E6%80%81)
+  - [泛型函数](#%E6%B3%9B%E5%9E%8B%E5%87%BD%E6%95%B0)
+- [trait 实现特设多态](#trait-%E5%AE%9E%E7%8E%B0%E7%89%B9%E8%AE%BE%E5%A4%9A%E6%80%81)
+  - [带关联类型的 trait](#%E5%B8%A6%E5%85%B3%E8%81%94%E7%B1%BB%E5%9E%8B%E7%9A%84-trait)
+- [子类型多态](#%E5%AD%90%E7%B1%BB%E5%9E%8B%E5%A4%9A%E6%80%81)
+  - [Trait Object](#trait-object)
+- [类型转换](#%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## 多态实现
 
 动态类型系统，多态通过鸭子类型（duck typing）实现
@@ -236,3 +252,10 @@ HtmlFormatter 的引用赋值给 Formatter 后，会生成一个 Trait Object，
 
 vtable 是一张静态的表，Rust 在编译时会为使用了 trait object 的类型的 trait 实现生成一张表，放在可执行文件中（一般在 TEXT 或
 RODATA 段）。
+
+## 类型转换
+
+- AsRef: 当需要通用函数支持不同类型时，AsRef 可以将它们转换为共通的引用形式。
+- Deref: 主要用于实现解引用运算符（*）的重载，允许自定义类型被当作引用处理。
+
+AsRef用于将值转换成引用形式，特别适用于泛型编程；Deref则允许自定义类型表现得如同引用一样，主要用于智能指针等类型；
