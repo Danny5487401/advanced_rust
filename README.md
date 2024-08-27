@@ -69,6 +69,20 @@
 - [2 动态数组 Vector 和 数组 [T; n] 如何转化成 &[T]](chapter08-vec/src/vec2-slice.rs)
 - [3 String、&String 转换成 &str](chapter08-vec/src/vec3-string-slice.rs)
 
+## [第九章：hash](chapter09-hash/hashmap.md)
+
+- 1 hashmap cap 扩容和缩容
+- 2 HashSet
+- 3 BTreeMap
+
+## [第十章：error 错误处理](chapter10-error/error.md)
+
+- [1 使用 ? 进行传播错误](chapter10-error/src/error1-transfer.rs)
+
+## [第十一章：闭包](chapter11-closure/closure.md)
+
+- 1 闭包的大小跟参数、局部变量都无关，只跟捕获的变量有关
+
 ## 参考
 
 - [Rust语言圣经](https://github.com/sunface/rust-course)

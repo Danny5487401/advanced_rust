@@ -1,0 +1,19 @@
+[package]
+name = "chapter09-hashmap"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+
+[[bin]]
+name = "hash1"
+path = "src/hash1-cap.rs"
+
+
+[[bin]]
+name = "hash2"
+path = "src/hash2-hashset.rs"
+
+
+[[bin]]
+name = "hash3"
+path = "src/hash3-btreemap.rs"

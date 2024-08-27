@@ -1,0 +1,17 @@
+[package]
+name = "chapter11-closure"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+
+[dependencies]
+
+
+[[bin]]
+name = "closure1"
+path = "src/closure1-size.rs"
+
+
+[[bin]]
+name = "closure2"
+path = "src/closure2-fnonce.rs"

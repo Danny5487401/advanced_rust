@@ -14,6 +14,9 @@
       <sourceFolder url="file://$MODULE_DIR$/chapter06-type/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/chapter07-pointer/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/chapter08-vec/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/chapter09-hash/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/chapter10-error/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/chapter11-closure/src" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />

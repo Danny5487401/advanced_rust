@@ -1,0 +1,14 @@
+[package]
+name = "chapter10-error"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+
+[dependencies]
+thiserror = "1.0"
+
+
+[[bin]]
+name = "error1"
+path = "src/error1-transfer.rs"
+
