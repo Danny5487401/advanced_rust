@@ -1,3 +1,16 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [闭包](#%E9%97%AD%E5%8C%85)
+  - [案例](#%E6%A1%88%E4%BE%8B)
+  - [Rust 的闭包类型](#rust-%E7%9A%84%E9%97%AD%E5%8C%85%E7%B1%BB%E5%9E%8B)
+    - [FnOnce 只能被调用一次](#fnonce-%E5%8F%AA%E8%83%BD%E8%A2%AB%E8%B0%83%E7%94%A8%E4%B8%80%E6%AC%A1)
+    - [FnMut](#fnmut)
+    - [Fn](#fn)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # 闭包
 
 > A closure expression produces a closure value with a unique, anonymous type that cannot be written out.
@@ -25,6 +38,8 @@ where
 
 ## Rust 的闭包类型
 
+![img.png](closure-type.png)
+
 ### FnOnce 只能被调用一次
 
 ```rust
@@ -44,3 +59,36 @@ pub trait FnOnce<Args: Tuple> {
 ```
 
 call_once 第一个参数是 self，它会转移 self 的所有权到 call_once 函数中
+
+### FnMut
+
+```rust
+#[fundamental] // so that regex can rely that `&str: !FnMut`
+#[must_use = "closures are lazy and do nothing unless called"]
+// FIXME(effects) #[const_trait]
+pub trait FnMut<Args: Tuple>: FnOnce<Args> {
+    /// Performs the call operation.
+    #[unstable(feature = "fn_traits", issue = "29625")]
+    extern "rust-call" fn call_mut(&mut self, args: Args) -> Self::Output;
+}
+
+```
+
+FnOnce 是 FnMut 的 super trait。所以 FnMut 也拥有 Output 这个关联类型和 call_once 这个方法。
+此外，它还有一个 call_mut() 方法。注意 call_mut() 传入 &mut self，它不移动 self，所以 FnMut 可以被多次调用。
+
+### Fn
+
+```rust
+#[fundamental] // so that regex can rely that `&str: !FnMut`
+#[must_use = "closures are lazy and do nothing unless called"]
+// FIXME(effects) #[const_trait]
+pub trait Fn<Args: Tuple>: FnMut<Args> {
+    /// Performs the call operation.
+    #[unstable(feature = "fn_traits", issue = "29625")]
+    extern "rust-call" fn call(&self, args: Args) -> Self::Output;
+}
+
+```
+
+Fn “继承”了 FnMut

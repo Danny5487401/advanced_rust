@@ -1,3 +1,14 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [error](#error)
+  - [? 操作符](#-%E6%93%8D%E4%BD%9C%E7%AC%A6)
+  - [Error trait 和错误类型的转换](#error-trait-%E5%92%8C%E9%94%99%E8%AF%AF%E7%B1%BB%E5%9E%8B%E7%9A%84%E8%BD%AC%E6%8D%A2)
+  - [thiserror](#thiserror)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # error
 
 ![img.png](error-situation.png)

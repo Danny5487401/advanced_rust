@@ -15,3 +15,13 @@ path = "src/closure1-size.rs"
 [[bin]]
 name = "closure2"
 path = "src/closure2-fnonce.rs"
+
+
+[[bin]]
+name = "closure3"
+path = "src/closure3-fnmut.rs"
+
+
+[[bin]]
+name = "closure4"
+path = "src/closure4-fn.rs"

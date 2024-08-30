@@ -1,0 +1,11 @@
+[package]
+name = "chapter12-unsafe"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+
+
+[[bin]]
+name = "unsafe1"
+path = "src/unsafe1-caller.rs"
+

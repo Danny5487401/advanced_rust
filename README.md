@@ -3,14 +3,18 @@
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
 - [**rust 背包客**](#rust-%E8%83%8C%E5%8C%85%E5%AE%A2)
-    - [第二章：feature 条件编译](#%E7%AC%AC%E4%BA%8C%E7%AB%A0feature-%E6%9D%A1%E4%BB%B6%E7%BC%96%E8%AF%91)
-    - [第三章：所有权](#%E7%AC%AC%E4%B8%89%E7%AB%A0%E6%89%80%E6%9C%89%E6%9D%83)
-    - [第四章：生命周期](#%E7%AC%AC%E5%9B%9B%E7%AB%A0%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F)
-    - [第五章：内存模型](#%E7%AC%AC%E4%BA%94%E7%AB%A0%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B)
-    - [第六章：类型](#%E7%AC%AC%E5%85%AD%E7%AB%A0%E7%B1%BB%E5%9E%8B)
-    - [第七章：指针](#%E7%AC%AC%E4%B8%83%E7%AB%A0%E6%8C%87%E9%92%88)
-    - [第八章：集合容器](#%E7%AC%AC%E5%85%AB%E7%AB%A0%E9%9B%86%E5%90%88%E5%AE%B9%E5%99%A8)
-    - [参考](#%E5%8F%82%E8%80%83)
+  - [第二章：feature 条件编译](#%E7%AC%AC%E4%BA%8C%E7%AB%A0feature-%E6%9D%A1%E4%BB%B6%E7%BC%96%E8%AF%91)
+  - [第三章：所有权](#%E7%AC%AC%E4%B8%89%E7%AB%A0%E6%89%80%E6%9C%89%E6%9D%83)
+  - [第四章：生命周期](#%E7%AC%AC%E5%9B%9B%E7%AB%A0%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F)
+  - [第五章：内存模型](#%E7%AC%AC%E4%BA%94%E7%AB%A0%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B)
+  - [第六章：类型](#%E7%AC%AC%E5%85%AD%E7%AB%A0%E7%B1%BB%E5%9E%8B)
+  - [第七章：指针](#%E7%AC%AC%E4%B8%83%E7%AB%A0%E6%8C%87%E9%92%88)
+  - [第八章：集合容器](#%E7%AC%AC%E5%85%AB%E7%AB%A0%E9%9B%86%E5%90%88%E5%AE%B9%E5%99%A8)
+  - [第九章：hash](#%E7%AC%AC%E4%B9%9D%E7%AB%A0hash)
+  - [第十章：error 错误处理](#%E7%AC%AC%E5%8D%81%E7%AB%A0error-%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86)
+  - [第十一章：闭包](#%E7%AC%AC%E5%8D%81%E4%B8%80%E7%AB%A0%E9%97%AD%E5%8C%85)
+  - [第十二章：unsafe](#%E7%AC%AC%E5%8D%81%E4%BA%8C%E7%AB%A0unsafe)
+  - [参考](#%E5%8F%82%E8%80%83)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -30,7 +34,7 @@
 - 3 Borrow 借用（通过 & 或者 &mut）
 - 4 多个所有者
     - 4.1 非线程安全 Rc（Reference counter 只读引用计数器）
-    - [4.2 非线程安全 RefCell 实现内部可变性](chapter03-ownership/src/ownership1.rs)
+    - [4.2 非线程安全 RefCell 实现内部可变性](chapter03-ownership/src/ownership1-borrow-mut)
     - 4.3 线程安全 Arc（Atomic reference counter）
     - 4.4 线程安全 Mutex 和 RwLock 实现内部可变性
 - [5 Clone 数据深拷贝](chapter03-ownership/src/ownership3-clone.rs)
@@ -71,7 +75,7 @@
 
 ## [第九章：hash](chapter09-hash/hashmap.md)
 
-- 1 hashmap cap 扩容和缩容
+- [1 hashmap cap 扩容和缩容](chapter09-hash/src/hash1-cap.rs)
 - 2 HashSet
 - 3 BTreeMap
 
@@ -81,7 +85,11 @@
 
 ## [第十一章：闭包](chapter11-closure/closure.md)
 
-- 1 闭包的大小跟参数、局部变量都无关，只跟捕获的变量有关
+- [1 闭包的大小跟参数、局部变量都无关，只跟捕获的变量有关](chapter11-closure/src/closure1-size.rs)
+
+## [第十二章：unsafe](chapter12-unsafe/unsafe.md)
+
+- [1 开发者还是调用者保证内存安全](chapter12-unsafe/src/unsafe1-caller.rs)
 
 ## 参考
 

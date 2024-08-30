@@ -1,3 +1,15 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [hash](#hash)
+  - [hashMap](#hashmap)
+    - [结构](#%E7%BB%93%E6%9E%84)
+    - [扩容和缩容](#%E6%89%A9%E5%AE%B9%E5%92%8C%E7%BC%A9%E5%AE%B9)
+  - [HashSet](#hashset)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # hash
 
 ## hashMap

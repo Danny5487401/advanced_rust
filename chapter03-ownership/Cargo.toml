@@ -6,7 +6,7 @@ authors.workspace = true
 
 [[bin]]
 name = "ownership1"
-path = "src/ownership1.rs"
+path = "src/ownership1-borrow-mut.rs"
 
 
 [[bin]]

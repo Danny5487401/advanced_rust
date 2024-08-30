@@ -2,7 +2,7 @@
 members = ["app", "chapter01-log",
     "chapter02-feature", "chapter03-ownership",
     "chapter04-lifecycle", "chapter05-memory", "chapter06-type",
-    "chapter07-pointer", "chapter08-vec", "chapter09-hash", "chapter10-error", "chapter11-closure"]
+    "chapter07-pointer", "chapter08-vec", "chapter09-hash", "chapter10-error", "chapter11-closure", "chapter12-unsafe"]
 
 
 [workspace.dependencies]
