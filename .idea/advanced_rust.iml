@@ -18,6 +18,11 @@
       <sourceFolder url="file://$MODULE_DIR$/chapter10-error/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/chapter11-closure/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/chapter12-unsafe/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/chapter13-atomic_n_ordering/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/chapter14-concurrecy/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/chapter15-macro/examples" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/chapter15-macro/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/chapter01-log/examples" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />

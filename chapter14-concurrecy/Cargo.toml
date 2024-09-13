@@ -1,0 +1,58 @@
+[package]
+name = "chapter14-concurrecy"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+
+[[bin]]
+name = "concurrency1"
+path = "src/concurrency1_convar.rs"
+
+[[bin]]
+name = "concurrency2"
+path = "src/concurrency2_future.rs"
+
+[[bin]]
+name = "concurrency3"
+path = "src/concurrency3_stream.rs"
+
+
+[[bin]]
+name = "concurrency4"
+path = "src/concurrency4_pin_stack.rs"
+
+[[bin]]
+name = "concurrency5"
+path = "src/concurrency5_pin_heap.rs"
+
+[[bin]]
+name = "concurrency6"
+path = "src/concurrency6_tokio_main.rs"
+
+[[bin]]
+name = "concurrency7"
+path = "src/concurrency7_tokio_mpsc.rs"
+
+
+[[bin]]
+name = "concurrency8"
+path = "src/concurrency8_tokio_watch.rs"
+
+[[bin]]
+name = "concurrency9"
+path = "src/concurrency9_tokio_select.rs"
+
+[dependencies]
+parking_lot = "0.12"
+anyhow = "1"
+blake3 = "1"
+futures = "0.3"
+rayon = "1"
+serde = { version = "1", features = ["derive"] }
+serde_yaml = "0.8"
+tokio = { version = "1", features = ["full"] }
+tokio-util = { version = "0.6", features = ["codec"] }
+toml = "0.5"
+tokio-stream = "0.1.15"
+
+

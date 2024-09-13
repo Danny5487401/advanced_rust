@@ -1,8 +1,8 @@
 [package]
 name = "chapter01"
-version = { workspace = true}
-edition = { workspace = true}
-authors = { workspace = true}
+version = { workspace = true }
+edition = { workspace = true }
+authors = { workspace = true }
 
 
 
@@ -10,3 +10,6 @@ authors = { workspace = true}
 serde = { workspace = true }
 tracing = { workspace = true }
 tracing-subscriber = { workspace = true }
+
+log = "0.4"
+env_logger = "0.9"

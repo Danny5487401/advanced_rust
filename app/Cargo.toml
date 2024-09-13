@@ -5,11 +5,5 @@ edition = "2021"
 
 [dependencies]
 serde = { workspace = true }
-tracing = { workspace = true }
-tracing-subscriber = { workspace = true, features = [
-    "env-filter",
-    "json",
-    "time",
-], optional = true }
-chapter01= {path = "../chapter01-log" }
-chapter02= {path = "../chapter02-feature",features = ["print-b"],default-features = false}
+chapter01 = { path = "../chapter01-log" }
+chapter02 = { path = "../chapter02-feature", features = ["print-b"], default-features = false }

@@ -1,0 +1,42 @@
+[package]
+name = "chapter15-macro"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+
+[lib]
+# 链接 rustc 工具链提供的 proc-macro 库 libproc_macro, 同时也表明该 crate 是 proc macro 类型
+proc-macro = true
+
+
+[dependencies]
+anyhow = "1"
+askama = "0.11" # 处理 jinjia 模板，模板需要放在和 src 平行的 templates 目录下
+darling = "0.13" # 可以很方便的处理宏里面 attributes
+proc-macro2 = "1" # proc-macro 的封装
+quote = "1.0"  # 提供 quote!{} 宏来生成代码（如实现 trait）
+syn = { version = "1", features = ["extra-traits"] } # 解析 TokenStream 来生成语法树 AST ，使用 extra-traits 可以用于 Debug
+
+
+
+
+
+
+[[example]]
+name = "macro1"
+path = "examples/macro1-declarativemacro.rs"
+
+
+[[example]]
+name = "macro2"
+path = "examples/macro2-declarativemacro-hygiene.rs"
+
+
+[[example]]
+name = "macro3"
+path = "examples/macro3-derive-macro.rs"
+
+
+[[example]]
+name = "macro4"
+path = "examples/macro4-attribute-macro.rs"

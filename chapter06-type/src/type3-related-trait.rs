@@ -1,6 +1,6 @@
+use regex::Regex;
 use std::str::FromStr;
 
-use regex::Regex;
 pub trait Parse {
     type Error;
     fn parse(s: &str) -> Result<Self, Self::Error>

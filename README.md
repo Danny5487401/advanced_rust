@@ -3,6 +3,7 @@
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
 - [**rust 背包客**](#rust-%E8%83%8C%E5%8C%85%E5%AE%A2)
+  - [第一章：log 日志](#%E7%AC%AC%E4%B8%80%E7%AB%A0log-%E6%97%A5%E5%BF%97)
   - [第二章：feature 条件编译](#%E7%AC%AC%E4%BA%8C%E7%AB%A0feature-%E6%9D%A1%E4%BB%B6%E7%BC%96%E8%AF%91)
   - [第三章：所有权](#%E7%AC%AC%E4%B8%89%E7%AB%A0%E6%89%80%E6%9C%89%E6%9D%83)
   - [第四章：生命周期](#%E7%AC%AC%E5%9B%9B%E7%AB%A0%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F)
@@ -14,6 +15,9 @@
   - [第十章：error 错误处理](#%E7%AC%AC%E5%8D%81%E7%AB%A0error-%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86)
   - [第十一章：闭包](#%E7%AC%AC%E5%8D%81%E4%B8%80%E7%AB%A0%E9%97%AD%E5%8C%85)
   - [第十二章：unsafe](#%E7%AC%AC%E5%8D%81%E4%BA%8C%E7%AB%A0unsafe)
+  - [第十三章：atomic and ordering](#%E7%AC%AC%E5%8D%81%E4%B8%89%E7%AB%A0atomic-and-ordering)
+  - [第十四章：并发处理](#%E7%AC%AC%E5%8D%81%E5%9B%9B%E7%AB%A0%E5%B9%B6%E5%8F%91%E5%A4%84%E7%90%86)
+  - [第十五章：宏编程](#%E7%AC%AC%E5%8D%81%E4%BA%94%E7%AB%A0%E5%AE%8F%E7%BC%96%E7%A8%8B)
   - [参考](#%E5%8F%82%E8%80%83)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -23,6 +27,11 @@
 ![rust logo](rust-logo.png)
 
 [cargo workspace来管理多个package](workspace.md)
+
+## [第一章：log 日志](chapter01-log/log.md)
+
+- 1 env_logger 记录日志
+- 2 tracing 记录日志
 
 ## [第二章：feature 条件编译](chapter02-feature/feature.md)
 
@@ -73,7 +82,7 @@
 - [2 动态数组 Vector 和 数组 [T; n] 如何转化成 &[T]](chapter08-vec/src/vec2-slice.rs)
 - [3 String、&String 转换成 &str](chapter08-vec/src/vec3-string-slice.rs)
 
-## [第九章：hash](chapter09-hash/hashmap.md)
+## [第九章：hash](chapter09-hash/hash.md)
 
 - [1 hashmap cap 扩容和缩容](chapter09-hash/src/hash1-cap.rs)
 - 2 HashSet
@@ -91,10 +100,39 @@
 
 - [1 开发者还是调用者保证内存安全](chapter12-unsafe/src/unsafe1-caller.rs)
 
+## [第十三章：atomic and ordering](chapter13-atomic_n_ordering/ordering.md)
+
+- 1 验证 Ordering 的可见性：两线程并发增加值
+    - 容易大于 1000000
+    - 最多只能 1000000
+
+## 第十四章：并发处理
+
+- [1 Condvar 条件变量](chapter14-concurrecy/src/01_convar.md)
+- [2 Future](chapter14-concurrecy/src/02_future.md)
+    - 2.1 await 来执行 future，或则使用一个 executor 来执行 future
+    - 2.2 将值固定到栈上
+    - 2.3 将值固定到堆上
+    - 2.4 将固定住的 Future 变为 Unpin
+- [3 tokio](chapter14-concurrecy/src/03_tokio.md)
+    - 3.1 #[tokio::main] 的作用
+    - 3.2 消息通道: mpsc 多生产者，单消费者模式
+    - 3.3 消息通道: watch 单生产者、多消费者
+
+## [第十五章：宏编程](chapter15-macro/macro.md)
+
+- 1 声明宏（declarative macro）
+    - [1.1 vec! 实现](chapter15-macro/examples/macro1-declarativemacro.rs)
+    - [1.2 声明宏的 hygiene:宏内部代码和宏上下文相互影响](chapter15-macro/examples/macro2-declarativemacro-hygiene.rs)
+- 2 过程宏（procedural macro）
+    - 2.1 派生宏（derive macro）
+    - 2.2 属性宏（attribute macro)
+
 ## 参考
 
 - [Rust语言圣经](https://github.com/sunface/rust-course)
 - [Rust 程序设计语言](https://rustwiki.org/zh-CN/book/title-page.html)
 - [Rust Practice](https://github.com/sunface/rust-by-practice)
 - [rust-by-example](https://github.com/rust-lang/rust-by-example)
+- [Rust 秘典(死灵书)](https://github.com/rust-lang-cn/nomicon-zh-Hans)
 - [陈天 · Rust 编程第一课](https://time.geekbang.org/column/intro/100085301?tab=catalog)

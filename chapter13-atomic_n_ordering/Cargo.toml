@@ -1,0 +1,14 @@
+[package]
+name = "chapter13-ordering"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+
+[[bin]]
+name = "ordering1"
+path = "src/ordering1.rs"
+
+
+[[bin]]
+name = "ordering2"
+path = "src/ordering2.rs"

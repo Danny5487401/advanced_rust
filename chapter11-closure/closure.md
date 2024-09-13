@@ -5,7 +5,7 @@
 - [闭包](#%E9%97%AD%E5%8C%85)
   - [案例](#%E6%A1%88%E4%BE%8B)
   - [Rust 的闭包类型](#rust-%E7%9A%84%E9%97%AD%E5%8C%85%E7%B1%BB%E5%9E%8B)
-    - [FnOnce 只能被调用一次](#fnonce-%E5%8F%AA%E8%83%BD%E8%A2%AB%E8%B0%83%E7%94%A8%E4%B8%80%E6%AC%A1)
+    - [FnOnce](#fnonce)
     - [FnMut](#fnmut)
     - [Fn](#fn)
 
@@ -40,7 +40,9 @@ where
 
 ![img.png](closure-type.png)
 
-### FnOnce 只能被调用一次
+### FnOnce
+
+FnOnce 只能被调用一次
 
 ```rust
 #[fundamental] // so that regex can rely that `&str: !FnMut`
