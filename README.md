@@ -39,11 +39,11 @@
 
 - 1 COPY 浅拷贝: 赋值或传参会优先使用 Copy 语义
     - [1.1 哪些结构可以 Copy、哪些不可以 Copy](chapter03-ownership/src/ownership2-copy.rs)
-- 2 Move 转移所有权：无 Copy,赋值或者传参会导致值 Move
-- 3 Borrow 借用（通过 & 或者 &mut）
+- [2 Move 转移所有权：无 Copy,赋值或者传参会导致值 Move](chapter03-ownership/src/ownership5-move-sum.rs)
+- [3 Borrow 借用(通过 & 或者 &mut)](chapter03-ownership/src/ownership4-borrow-sum.rs)
 - 4 多个所有者
     - 4.1 非线程安全 Rc（Reference counter 只读引用计数器）
-    - [4.2 非线程安全 RefCell 实现内部可变性](chapter03-ownership/src/ownership1-borrow-mut)
+    - [4.2 非线程安全 RefCell 实现内部可变性](chapter03-ownership/src/ownership1-borrow-mut.rs)
     - 4.3 线程安全 Arc（Atomic reference counter）
     - 4.4 线程安全 Mutex 和 RwLock 实现内部可变性
 - [5 Clone 数据深拷贝](chapter03-ownership/src/ownership3-clone.rs)

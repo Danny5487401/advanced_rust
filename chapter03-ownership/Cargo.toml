@@ -18,3 +18,12 @@ path = "src/ownership2-copy.rs"
 [[bin]]
 name = "ownership3"
 path = "src/ownership3-clone.rs"
+
+
+[[bin]]
+name = "ownership4"
+path = "src/ownership4-borrow-sum.rs"
+
+[[bin]]
+name = "ownership5"
+path = "src/ownership5-move-sum.rs"

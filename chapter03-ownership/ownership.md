@@ -10,7 +10,7 @@
     - [可变借用 / 引用](#%E5%8F%AF%E5%8F%98%E5%80%9F%E7%94%A8--%E5%BC%95%E7%94%A8)
   - [多个所有者](#%E5%A4%9A%E4%B8%AA%E6%89%80%E6%9C%89%E8%80%85)
     - [Rc（Reference counter）](#rcreference-counter)
-      - [RefCell 实现 内部可变性](#refcell-%E5%AE%9E%E7%8E%B0-%E5%86%85%E9%83%A8%E5%8F%AF%E5%8F%98%E6%80%A7)
+      - [RefCell 实现内部可变性](#refcell-%E5%AE%9E%E7%8E%B0%E5%86%85%E9%83%A8%E5%8F%AF%E5%8F%98%E6%80%A7)
     - [Arc（Atomic reference counter）](#arcatomic-reference-counter)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -27,6 +27,8 @@ Rust 给出了如下规则：
 - 当所有者离开作用域，其拥有的值被丢弃（When the owner goes out of scope, the value will be dropped），内存得到释放。
 
 ## 方案
+
+![img.png](ownershop.png)
 
 - 如果你不希望值的所有权被转移，在 Move 语义外，Rust 提供了 Copy 语义。如果一个数据结构实现了 Copy trait，那么它就会使用
   Copy 语义。这样，在你赋值或者传参时，值会自动按位拷贝（浅拷贝）。
@@ -207,13 +209,13 @@ impl<T: ?Sized, A: Allocator + Clone> Clone for Rc<T, A> {
 }
 ```
 
-#### RefCell 实现 内部可变性
+#### RefCell 实现内部可变性
 
 实际开发中我们往往需要对数据进行修改，这时单独使用 Rc<T> 无法满足我们的需求，需要配合其它数据类型来一起使用，例如内部可变性的
 RefCell<T> 类型以及互斥锁 Mutex<T>
 
-外部可变性（exterior mutability）: &mut 声明一个可变引用时，
-内部可变性: 对并未声明成 mut 的值或者引用，也想进行修改。也就是说，在编译器的眼里，值是只读的，但是在运行时，这个值可以得到可变借用，从而修改内部的数据，
+- 外部可变性（exterior mutability）: &mut 声明一个可变引用时，
+- 内部可变性: 对并未声明成 mut 的值或者引用，也想进行修改。也就是说，在编译器的眼里，值是只读的，但是在运行时，这个值可以得到可变借用，从而修改内部的数据，
 
 RefCell 也不是线程安全的，如果我们要在多线程中，使用内部可变性，Rust 提供了 Mutex 和 RwLock。
 
