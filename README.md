@@ -85,16 +85,22 @@
 ## [第九章：hash](chapter09-hash/hash.md)
 
 - [1 hashmap cap 扩容和缩容](chapter09-hash/src/hash1-cap.rs)
-- 2 HashSet
-- 3 BTreeMap
+- [2 HashSet](chapter09-hash/src/hash2-hashset.rs)
+- [3 BTreeMap](chapter09-hash/src/hash3-btreemap.rs)
 
 ## [第十章：error 错误处理](chapter10-error/error.md)
 
-- [1 使用 ? 进行传播错误](chapter10-error/src/error1-transfer.rs)
+- [1 多级 match](chapter10-error/src/error1-match.rs)
+- [2 使用 ? 优化 多级 match 传播错误](chapter10-error/src/error2-customerror.rs)
+- 3 anyhow
+- 4 thiserror
 
 ## [第十一章：闭包](chapter11-closure/closure.md)
 
 - [1 闭包的大小跟参数、局部变量都无关，只跟捕获的变量有关](chapter11-closure/src/closure1-size.rs)
+- 2 FnOnce
+- 3 FnMut
+- 4 Fn
 
 ## [第十二章：unsafe](chapter12-unsafe/unsafe.md)
 
@@ -115,9 +121,9 @@
     - 2.3 将值固定到堆上
     - 2.4 将固定住的 Future 变为 Unpin
 - [3 tokio](chapter14-concurrecy/src/03_tokio.md)
-    - 3.1 #[tokio::main] 的作用
-    - 3.2 消息通道: mpsc 多生产者，单消费者模式
-    - 3.3 消息通道: watch 单生产者、多消费者
+    - [3.1 #[tokio::main] 的作用](chapter14-concurrecy/src/concurrency6_tokio_main.rs)
+    - [3.2 消息通道: mpsc 多生产者，单消费者模式](chapter14-concurrecy/src/concurrency7_tokio_mpsc.rs)
+    - [3.3 消息通道: watch 单生产者、多消费者](chapter14-concurrecy/src/concurrency8_tokio_watch.rs)
 
 ## [第十五章：宏编程](chapter15-macro/macro.md)
 
@@ -127,6 +133,7 @@
 - 2 过程宏（procedural macro）
     - 2.1 派生宏（derive macro）
     - 2.2 属性宏（attribute macro)
+    - 2.3 函数宏（function-like macro)
 
 ## 参考
 

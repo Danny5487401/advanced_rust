@@ -6,9 +6,18 @@ authors.workspace = true
 
 [dependencies]
 thiserror = "1.0"
-
+anyhow = "1"
 
 [[bin]]
 name = "error1"
-path = "src/error1-transfer.rs"
+path = "src/error1-match.rs"
 
+
+
+[[bin]]
+name = "error2"
+path = "src/error2-customerror.rs"
+
+[[bin]]
+name = "error3"
+path = "src/error3-anyhow.rs"

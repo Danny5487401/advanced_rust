@@ -10,7 +10,6 @@ proc-macro = true
 
 
 [dependencies]
-anyhow = "1"
 askama = "0.11" # 处理 jinjia 模板，模板需要放在和 src 平行的 templates 目录下
 darling = "0.13" # 可以很方便的处理宏里面 attributes
 proc-macro2 = "1" # proc-macro 的封装

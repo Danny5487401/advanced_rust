@@ -230,6 +230,7 @@ version = "0.1.0"
 name = "chapter10-error"
 version = "0.1.0"
 dependencies = [
+ "anyhow",
  "thiserror",
 ]
 
@@ -266,7 +267,6 @@ dependencies = [
 name = "chapter15-macro"
 version = "0.1.0"
 dependencies = [
- "anyhow",
  "askama",
  "darling",
  "proc-macro2",

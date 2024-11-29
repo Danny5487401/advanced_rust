@@ -2,10 +2,31 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
+- [基于 Send 和 Sync 的线程安全](#%E5%9F%BA%E4%BA%8E-send-%E5%92%8C-sync-%E7%9A%84%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8)
+- [线程同步](#%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5)
 - [异步运行时](#%E5%BC%82%E6%AD%A5%E8%BF%90%E8%A1%8C%E6%97%B6)
   - [executor](#executor)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+## 基于 Send 和 Sync 的线程安全
+
+Send和Sync是 Rust 安全并发的重中之重，但是实际上它们只是标记特征(marker trait，该特征未定义任何行为，因此非常适合用于标记),
+来看看它们的作用：
+
+- 实现Send的类型可以在线程间安全的传递其所有权
+- 实现Sync的类型可以在线程间安全的共享(通过引用)
+
+## 线程同步
+
+- 共享内存
+    - atomics
+    - 线程间共享只读数据 Arc<T>
+    - 线程间共享可写数据 Arc<Mutex<T>>
+- CSP: channel
+    - mpsc
+    - oneshot
+- Actor
 
 ## 异步运行时
 
