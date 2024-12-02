@@ -6,7 +6,7 @@ authors.workspace = true
 
 [[bin]]
 name = "hash1"
-path = "src/hash1-cap.rs"
+path = "src/hash1-hashmap.rs"
 
 
 [[bin]]

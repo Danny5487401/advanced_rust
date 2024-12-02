@@ -2,14 +2,49 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
-- [智能指针](#%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88)
-  - [COW 写时克隆(Clone on write)的智能指针](#cow-%E5%86%99%E6%97%B6%E5%85%8B%E9%9A%86clone-on-write%E7%9A%84%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88)
-    - [Cow的使用场景](#cow%E7%9A%84%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF)
-  - [MutexGuard](#mutexguard)
+- [指针](#%E6%8C%87%E9%92%88)
+  - [共享引用指针 Shared references (&)](#%E5%85%B1%E4%BA%AB%E5%BC%95%E7%94%A8%E6%8C%87%E9%92%88-shared-references-)
+  - [可变引用指针 Mutable references (&mut)](#%E5%8F%AF%E5%8F%98%E5%BC%95%E7%94%A8%E6%8C%87%E9%92%88-mutable-references-mut)
+  - [裸指针 Raw pointers (*const and *mut)](#%E8%A3%B8%E6%8C%87%E9%92%88-raw-pointers-const-and-mut)
+  - [智能指针 Smart Pointers](#%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88-smart-pointers)
+    - [COW 写时克隆(Clone on write)的智能指针](#cow-%E5%86%99%E6%97%B6%E5%85%8B%E9%9A%86clone-on-write%E7%9A%84%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88)
+      - [Cow的使用场景](#cow%E7%9A%84%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF)
+    - [MutexGuard](#mutexguard)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-## 智能指针
+# 指针
+
+## 共享引用指针 Shared references (&)
+
+- 共享引用指针指向的是一个值的内存地址；
+- 当一个值存在共享引用指针的时候，同时也阻止了这个值的可变；
+- Interior mutability 是一个特例，允许内部值可变；
+- 一个值可以存在任意个共享引用指针；
+- 共享引用指针语法： &type 或 &'a type (带生命周期标记) ；
+- 共享引用指针的复制是 "shallow" 操作，只复制指针自身，也就是说共享引用指针是可复制的；
+- 释放共享引用指针对共享引用指针所指向的值没有影响；
+- 如果共享引用指针指向的是一个临时值( temporary value) ，共享引用指针和临时值在当前域中共存；
+
+## 可变引用指针 Mutable references (&mut)
+
+- 可变引用指针同样指向的是一个值的内存地址；
+- 可变引用指针语法： &mut type or &'a mut type；
+- 一个值的可变引用指针是访问这个值的唯一途径，所以可变引用指针不可以复制；
+
+## 裸指针 Raw pointers (*const and *mut)
+
+- 裸指针没有安全保证和值的有效性保证；
+- 裸指针语法： *const T 或 *mut T，例如 *const i32 代表 对一个 32-bit 整数值的裸指针；
+- 裸指针的复制和释放操作对它所指向的值的生命没有影响；
+- 对裸指针的解引用操作 (&* or &mut *)是不安全操作( unsafe operation)；
+- 对裸指针的解引用操作 (&* or &mut *)可以把一个裸指针转成共享引用或可变引用；
+- 裸指针通常是不鼓励使用；
+- 使用裸指针的场景有三种：为了方便 Rust 和其他语言的交互；对性能有更好要求的函数；实现底层函数。
+- 当比较裸指针的时候，比较的是地址值、并不是对裸指针指向的值做比较；
+- 当比较指向DST类型值的裸指针的时候，除了比较地址值，还同时比较辅助值；
+
+## 智能指针 Smart Pointers
 
 在 Rust 中，凡是需要做资源回收的数据结构，且实现了 Deref/DerefMut/Drop，都是智能指针。
 

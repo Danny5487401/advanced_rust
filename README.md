@@ -69,7 +69,7 @@
     - [3.1 静态分派 (static dispatching): 使用泛型函数](chapter06-type/src/type4-child.rs)
     - [3.2 动态分派 (dynamic dispatching): 使用 trait object](chapter06-type/src/type5-dynamic-dispatch.rs)
 - [4 AsRef 类型转换](chapter06-type/src/type6-asref.rs)
-- [5 Deref解引用运算符（*）的重载:直接访问 Vec<T> 的方法](chapter06-type/src/type7-deref.rs)
+- [5 Deref解引用运算符（*）的重载:直接访问内部元素的方法](chapter06-type/src/type7-deref.rs)
 
 ## [第七章：指针](chapter07-pointer/pointer.md)
 
@@ -84,7 +84,7 @@
 
 ## [第九章：hash](chapter09-hash/hash.md)
 
-- [1 hashmap cap 扩容和缩容](chapter09-hash/src/hash1-cap.rs)
+- [1 hashmap cap 扩容和缩容](chapter09-hash/src/hash1-hashmap.rs)
 - [2 HashSet](chapter09-hash/src/hash2-hashset.rs)
 - [3 BTreeMap](chapter09-hash/src/hash3-btreemap.rs)
 

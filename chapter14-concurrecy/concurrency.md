@@ -4,6 +4,7 @@
 
 - [基于 Send 和 Sync 的线程安全](#%E5%9F%BA%E4%BA%8E-send-%E5%92%8C-sync-%E7%9A%84%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8)
 - [线程同步](#%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5)
+- [同步 trait vs 异步 trait](#%E5%90%8C%E6%AD%A5-trait-vs-%E5%BC%82%E6%AD%A5-trait)
 - [异步运行时](#%E5%BC%82%E6%AD%A5%E8%BF%90%E8%A1%8C%E6%97%B6)
   - [executor](#executor)
 
@@ -27,6 +28,10 @@ Send和Sync是 Rust 安全并发的重中之重，但是实际上它们只是标
     - mpsc
     - oneshot
 - Actor
+
+## 同步 trait vs 异步 trait
+
+![img.png](sync-vs-async-trait.png)
 
 ## 异步运行时
 

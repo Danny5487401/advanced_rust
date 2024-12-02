@@ -15,7 +15,7 @@ fn main() {
     let map = explain("remove 1", map);
 
     for item in map.iter() {
-        println!("{:?}", item);
+        println!("{:?}", item); // 有序
     }
 }
 

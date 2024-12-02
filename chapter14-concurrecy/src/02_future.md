@@ -3,12 +3,16 @@
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
 - [future](#future)
-  - [前置 trait : pin/ unpin](#%E5%89%8D%E7%BD%AE-trait--pin-unpin)
+  - [前置 trait: pin/ unpin](#%E5%89%8D%E7%BD%AE-trait-pin-unpin)
+    - [pin 解决方式](#pin-%E8%A7%A3%E5%86%B3%E6%96%B9%E5%BC%8F)
   - [future 实现](#future-%E5%AE%9E%E7%8E%B0)
-    - [waker 的 vtable 在第三方实现](#waker-%E7%9A%84-vtable-%E5%9C%A8%E7%AC%AC%E4%B8%89%E6%96%B9%E5%AE%9E%E7%8E%B0)
+    - [返回值: PollSelf::Output](#%E8%BF%94%E5%9B%9E%E5%80%BC-pollselfoutput)
+    - [入参 self: Pin<&mut Self>, cx: &mut Context<'_>](#%E5%85%A5%E5%8F%82-self-pinmut-self-cx-mut-context_)
+      - [waker 的 vtable 第三方实现->futures-task](#waker-%E7%9A%84-vtable-%E7%AC%AC%E4%B8%89%E6%96%B9%E5%AE%9E%E7%8E%B0-futures-task)
   - [async 实现](#async-%E5%AE%9E%E7%8E%B0)
   - [stream](#stream)
     - [futures-core](#futures-core)
+  - [参考](#%E5%8F%82%E8%80%83)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -29,12 +33,70 @@ sugar），它使用状态机将 Promise 包装起来，让异步调用的使用
 
 async 来方便地生成 Future，await 来触发 Future 的调度和执行。
 
-## 前置 trait : pin/ unpin
+## 前置 trait: pin/ unpin
 
-unpin: 在内存中安全地移动
+- pin: 将一个值标记为“被固定”表示不能移动或重新分配这个值。
+- unpin: 在内存中安全地移动
+
+![img.png](shallow_copy.png)
 
 ```rust
-// 自引用类型
+struct SelfReferenceFoo {
+    data: String,
+    data_ref: *const String,
+}
+
+
+impl SelfReferenceFoo {
+    fn print_data(&self) {
+        println!("data: {:?}, memory address: {:p}", self.data, &self.data);
+    }
+
+    fn print_data_ref(&self) {
+        println!(
+            "data that referenced: {:?}, memory address: {:p}",
+            unsafe { &*self.data_ref },
+            self.data_ref
+        );
+    }
+}
+
+impl SelfReferenceFoo {
+    fn new(data: String) -> Self {
+        SelfReferenceFoo {
+            data,
+            data_ref: std::ptr::null(),
+        }
+    }
+
+    // 设置 data_ref，将其指向 data
+    fn set_data_ref(&mut self) {
+        self.data_ref = &self.data as *const String;
+    }
+}
+
+fn main() {
+    let mut foo = SelfReferenceFoo::new(String::from("hello"));
+    foo.set_data_ref();
+
+    println!("[before move]");
+    foo.print_data();
+    foo.print_data_ref();
+
+    // 发生移动，foo 将被回收，所指向的内存区域有可能会被写入其他值
+    let new_foo = foo;
+
+    println!("[after move]");
+    new_foo.print_data();
+    new_foo.print_data_ref();
+}
+
+```
+
+自引用结构体（self-referential struct）非常容易理解：就是结构体成员引用（持有指针）了当前结构体的其他成员。
+
+```rust
+// 自引用类型 self-referential struct
 struct SelfRef {
     value: String,
     pointer_to_value: *mut String,
@@ -59,6 +121,12 @@ pub struct Pin<Ptr> {
 
 绝大多数类型都不在意是否被移动(开篇提到的第一种类型)，因此它们都自动实现了 Unpin 特征。
 
+### pin 解决方式
+
+1. Box 将栈上数据移到堆上
+
+![img.png](box_pin.png)
+
 ## future 实现
 
 ```rust
@@ -82,7 +150,9 @@ pub trait Future {
 }
 ```
 
-poll() 方法，这个方法返回 PollSelf::Output
+poll() 方法说明:
+
+### 返回值: Poll<Self::Output>
 
 ```rust
 pub enum Poll<T> {
@@ -106,6 +176,8 @@ Poll 是个 enum，包含 Ready 和 Pending 两个状态.
 
 - 当 Future 返回 Pending 状态时，活还没干完，但干不下去了，需要阻塞一阵子，等某个事件将其唤醒；
 - 当 Future 返回 Ready 状态时，Future 对应的值已经得到，
+
+### 入参 self: Pin<&mut Self>, cx: &mut Context<'_>
 
 ```rust
 #[stable(feature = "futures_api", since = "1.36.0")]
@@ -145,7 +217,7 @@ pub struct RawWaker {
 
 Context 就是 Waker 的一个封装。
 
-### waker 的 vtable 在第三方实现
+#### waker 的 vtable 第三方实现->futures-task
 
 ```rust
 // https://github.com/rust-lang/futures-rs/blob/0.3.30/futures-task/src/waker.rs
@@ -163,7 +235,26 @@ pub(super) fn waker_vtable<W: ArcWake>() -> &'static RawWakerVTable {
 
 ## async 实现
 
-Rust 在编译 async fn 或者 async block 时，就会生成类似的状态机的实现
+使用 async 有两种方式：async fn 和 async blocks。每种方法都返回一个实现了Future trait 的匿名结构.
+
+Rust 在编译 async fn 或者 async block 时，就会生成类似的状态机的实现.
+
+```rust
+// `foo()` returns a type that implements `Future<Output = u8>`.
+async fn foo() -> u8 { 5 }
+
+fn bar() -> impl Future<Output=u8> {
+    // This `async` block results in a type that implements
+    // `Future<Output = u8>`.
+    async {
+        5
+    }
+}
+```
+
+async 关键字相当于一个返回 impl Future<Output> 的语法糖。
+
+调用 async fn 并不会让函数执行，而是返回 impl Future<Output>，你只有在返回值上使用 .await，才能触发函数的实际执行。
 
 ## stream
 
@@ -215,3 +306,8 @@ pub trait StreamExt: Stream {
 
 }
 ```
+
+## 参考
+
+- [Rust 的 Pin 机制](https://www.cnblogs.com/RioTian/p/18135131)
+- [Rust 异步编程](https://cloud.tencent.com/developer/article/2363241)
