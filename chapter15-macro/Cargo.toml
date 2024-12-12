@@ -5,8 +5,10 @@ edition.workspace = true
 authors.workspace = true
 
 [lib]
-# 链接 rustc 工具链提供的 proc-macro 库 libproc_macro, 同时也表明该 crate 是 proc macro 类型
+# note: 这时候 crate 就不能 macro_export
+## 链接 rustc 工具链提供的 proc-macro 库 libproc_macro, 同时也表明该 crate 是 proc macro 类型
 proc-macro = true
+path = "src/lib.rs"
 
 
 [dependencies]
@@ -39,3 +41,8 @@ path = "examples/macro3-derive-macro.rs"
 [[example]]
 name = "macro4"
 path = "examples/macro4-attribute-macro.rs"
+
+
+[[example]]
+name = "macro5"
+path = "examples/macro5-function-macro.rs"

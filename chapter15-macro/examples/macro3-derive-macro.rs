@@ -1,30 +1,21 @@
-use chapter15_macro::Builder;
+use chapter15_macro::IntoHashMap;
+use std::collections::HashMap;
 
-#[allow(dead_code)]
-#[derive(Debug, Builder)]
-pub struct Command {
-    executable: String,
-    args: Vec<String>,
-    env: Vec<String>,
-    current_dir: Option<String>,
+#[derive(IntoHashMap)]
+pub struct User {
+    username: String,
+    first_name: String,
+    last_name: String,
 }
 
 fn main() {
-    let command = Command::builder()
-        .executable("cargo".to_owned())
-        .args(vec!["build".to_owned(), "--release".to_owned()])
-        .env(vec![])
-        .build()
-        .unwrap();
-    assert!(command.current_dir.is_none());
+    let user = User {
+        username: "username".to_string(),
+        first_name: "First".to_string(),
+        last_name: "Last".to_string(),
+    };
 
-    let command = Command::builder()
-        .executable("cargo".to_owned())
-        .args(vec!["build".to_owned(), "--release".to_owned()])
-        .env(vec![])
-        .current_dir("..".to_owned())
-        .build()
-        .unwrap();
-    assert!(command.current_dir.is_some());
-    println!("{:?}", command);
+    let hash_map = HashMap::<String, String>::from(user);
+
+    dbg!(hash_map);
 }

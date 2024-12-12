@@ -1,43 +1,30 @@
-// 引入 proc_macro crate，用于创建过程宏
-extern crate proc_macro;
+mod constant_string;
+mod into_hash_map;
+mod log_duration;
+
+extern crate proc_macro2;
+
+use constant_string::constant_string_impl;
+use into_hash_map::into_hash_map_impl;
+use log_duration::log_duration_impl;
 use proc_macro::TokenStream;
-use syn;
-// 引入 syn crate，用于解析 Rust 代码
-use syn::{parse_macro_input, DeriveInput};
-// 引入 quote crate，用于生成代码片段
-use quote::quote;
 
-mod builder;
-
-// 定义 Builder 派生宏
-#[proc_macro_derive(Builder)]
-pub fn derive_builder(input: TokenStream) -> TokenStream {
-    let input = parse_macro_input!(input as DeriveInput);
-    builder::BuilderContext::from(input).render().into()
+// 告诉编译器这个函数是一个派生宏，而派生的标识符是 `IntoHashMap`。
+#[proc_macro_derive(IntoHashMap)]
+// 声明一个函数，该函数接收一个输入 `TokenStream` 并输出 `TokenStream`。
+pub fn into_hash_map(item: TokenStream) -> TokenStream {
+    into_hash_map_impl(item)
 }
 
-// 定义 log_bench 属性宏
+// 应用于任何函数（或方法），并在每次调用函数时记录函数的总运行时间
 #[proc_macro_attribute]
-pub fn log_bench(_: TokenStream, item: TokenStream) -> TokenStream {
-    // 解析传入的函数定义
-    let input_fn = parse_macro_input!(item as syn::ItemFn);
+pub fn log_duration(args: TokenStream, item: TokenStream) -> TokenStream {
+    //第一个是传递给属性宏的参数，第二个是属性宏的目标。
+    log_duration_impl(args, item)
+}
 
-    // 获取函数名和函数体
-    let fn_name = &input_fn.sig.ident;
-    let fn_block = &input_fn.block;
-
-    // 构建新的函数定义，包含性能日志输出
-    let expanded = quote! {
-        fn #fn_name() {
-            // 获取函数执行开始时间点
-            let start = std::time::Instant::now();
-            println!("进入函数: {}", stringify!(#fn_name));
-            // 执行原函数体
-            #fn_block
-            println!("离开函数: {} (耗时 {} ms)", stringify!(#fn_name), start.elapsed().as_millis());
-        }
-    };
-
-    // 将生成的代码片段转换为 TokenStream，以便返回
-    TokenStream::from(expanded)
+// 它将一个字符串字面量（类型为 &str）作为输入，并为其创建一个全局公共常量（变量名称与值相同）。
+#[proc_macro]
+pub fn constant_string(item: TokenStream) -> TokenStream {
+    constant_string_impl(item)
 }

@@ -8,25 +8,27 @@
   - [过程宏（procedural macro）](#%E8%BF%87%E7%A8%8B%E5%AE%8Fprocedural-macro)
     - [派生宏（derive macro 可推导宏）](#%E6%B4%BE%E7%94%9F%E5%AE%8Fderive-macro-%E5%8F%AF%E6%8E%A8%E5%AF%BC%E5%AE%8F)
     - [属性宏（attribute macro)](#%E5%B1%9E%E6%80%A7%E5%AE%8Fattribute-macro)
-      - [第三方实现 --> #[tokio::main]](#%E7%AC%AC%E4%B8%89%E6%96%B9%E5%AE%9E%E7%8E%B0----tokiomain)
-    - [函数宏（function-like macro）](#%E5%87%BD%E6%95%B0%E5%AE%8Ffunction-like-macro)
+      - [第三方实现 -->tokio](#%E7%AC%AC%E4%B8%89%E6%96%B9%E5%AE%9E%E7%8E%B0---tokio)
+    - [类函数宏（function-like macro）](#%E7%B1%BB%E5%87%BD%E6%95%B0%E5%AE%8Ffunction-like-macro)
   - [其他编程语言常见的元编程方式](#%E5%85%B6%E4%BB%96%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E5%B8%B8%E8%A7%81%E7%9A%84%E5%85%83%E7%BC%96%E7%A8%8B%E6%96%B9%E5%BC%8F)
   - [工具](#%E5%B7%A5%E5%85%B7)
     - [cargo-expand](#cargo-expand)
-    - [syn](#syn)
+    - [syn--语法解析器。将输入的 token 流解析为 Rust AST](#syn--%E8%AF%AD%E6%B3%95%E8%A7%A3%E6%9E%90%E5%99%A8%E5%B0%86%E8%BE%93%E5%85%A5%E7%9A%84-token-%E6%B5%81%E8%A7%A3%E6%9E%90%E4%B8%BA-rust-ast)
     - [quote](#quote)
+    - [proc-macro2](#proc-macro2)
+    - [darling](#darling)
   - [参考](#%E5%8F%82%E8%80%83)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 # macro 宏
 
-元编程可以让开发者将原生语言写的代码作为数据输入，经过自定义的逻辑，重新输出为新的代码并作为整体代码的一部分。这个过程一般在编译时期完成（对于编译型语言来说），所以让人觉得这是一种神奇的
-“黑魔法
+元编程可以让开发者将原生语言写的代码作为数据输入，经过自定义的逻辑，重新输出为新的代码并作为整体代码的一部分。
+这个过程一般在编译时期完成（对于编译型语言来说），所以让人觉得这是一种神奇的 “黑魔法“
 
 宏就两大类：对代码模板做简单替换的声明宏（declarative macro）、可以深度定制和生成代码的过程宏（procedural macro）。
 
-宏调用有三种等价的形式：marco!(xx), marcro![xxx], macro!{xx}。惯例是：
+宏调用有三种等价的形式：marco!(xx), macro![xxx], macro!{xx}。惯例是：
 
 - 函数传参调用场景使用 () 形式，如 println!();
 - 字面量初始化使用 [] 形式，如 vec![0; 4];
@@ -162,7 +164,8 @@ Rust 看来，macro_rules 中的 local 和 main() 里的 local 分别有着不�
 - 函数宏（function-like macro）：custom!(…) 看起来像函数的宏，但在编译期进行处理。比如 sqlx 里的 query 宏，它内部展开出一个
   expand_query
   函数宏。你可能想象不到，看上去一个简单的 query 处理，内部有多么庞大的代码结构。
-- 属性宏（attribute macro）：#[CustomAttribute]可以在其他代码块上添加属性，为代码块提供更多功能。比如 rocket 的 get / put
+- 属性宏（attribute-like macro）：#[CustomAttribute]可以在其他代码块上添加属性，为代码块提供更多功能。比如 rocket 的 get /
+  put
   等路由属性，#[tokio::main] 来引入 runtime。
 - 派生宏（derive macro 可推导宏）：为 derive 属性添加新的功能,一般用来为 struct/enum/union 实现特定的
   trait。这是我们平时使用最多的宏，比如 #[derive(Debug)] 为我们的数据结构提供
@@ -176,7 +179,7 @@ Rust 看来，macro_rules 中的 local 和 main() 里的 local 分别有着不�
 ```rust
 use proc_macro;
 
-#[some_attribute]
+#[some_attribute] // # proc_macro_derive  proc_macro_attribute  proc_macro
 pub fn some_name(input: TokenStream) -> TokenStream {}
 
 ```
@@ -184,34 +187,51 @@ pub fn some_name(input: TokenStream) -> TokenStream {}
 在单独的 crate package 中定义过程宏的原因:
 
 proc macro 定义需要先被编译器编译为 host 架构类型，后续编译使用它的代码时，编译器才能 dlopen 和执行它们来为 target 架构生成代码；
-非过程宏 crate 需要被边翼卫 target 架构类型，然后才能被和其它 target 架构的动态库链接；
-
-需要引入proc_macro 这个 crate，然后标签是用来声明它是哪种过程式宏的，接着就是一个函数定义，函数接受 TokenStream，返回
-TokenStream。TokenStream 类型就定义在 proc_macro 包中，表示 token 序列。
-
-除了标准库 proc_macro 中的这个包，还可以使用proc_macro2 包，使用 proc_macro2::TokenStream::from() 和 proc_macro::
-TokenStream::from()
-可以很便捷地在两个包的类型间进行转换。
-使用 proc_macro2 的好处是可以在过程宏外部使用 proc_macro2 的类型，相反 proc_macro 中的类型只可以在过程宏的上下文中使用。
-且 proc_macro2 写出的宏更容易编写测试代码。
+非过程宏 crate 需要被编译成 target 架构类型，然后才能被和其它 target 架构的动态库链接；
 
 ### 派生宏（derive macro 可推导宏）
 
 派生宏可以自动生成实现特定trait的代码，减少手动实现的繁琐性。
 
 ```rust
+// 为数据类型派生方法的示例
 #[derive(Debug)]
-struct Person {
-    name: String,
-    age: u32,
+pub struct User {
+    username: String,
+    first_name: String,
+    last_name: String,
 }
 ```
 
-#[derive(Debug)]是一个派生宏，它告诉Rust编译器为Person结构体自动生成Debug trait的实现
+#[derive(Debug)]是一个派生宏，它告诉Rust编译器为Person结构体自动生成Debug trait的实现.
+
+```rust
+impl core::fmt::Debug for User {
+    fn fmt(&self, f: &mut core::fmt::Formatter) -> core::fmt::Result {
+        f.debug_struct(
+            "User"
+        )
+            .field("username", &self.username)
+            .field("first_name", &self.first_name)
+            .field("last_name", &self.last_name)
+            .finish()
+    }
+}
+```
 
 ### 属性宏（attribute macro)
 
-在Rust中，属性宏是一种特殊的宏，它允许开发者在代码上方添加自定义的属性，并在编译期间对代码进行处理。属性宏使用proc_macro_attribute属性来定义
+在Rust中，属性宏是一种特殊的宏，它允许开发者在代码上方添加自定义的属性，并在编译期间对代码进行处理。
+属性宏除了数据类型外，通常还应用于代码块，如函数、impl 块、内联块等。它们通常用于以某种方式转换目标代码，或使用附加信息注解它。
+
+这些宏最常见的用例是修改函数以添加额外的功能或逻辑。例如，你可以轻松编写一个属性宏：
+
+- 记录所有输入和输出参数
+- 记录函数的总运行时间
+- 统计函数调用次数
+- 向任何结构体添加预定义的附加字段
+
+属性宏使用proc_macro_attribute属性来定义
 
 ```rust
 extern crate proc_macro;
@@ -229,7 +249,17 @@ pub fn attribute_macro(attr: TokenStream, item: TokenStream) -> TokenStream {
 使用proc_macro_attribute属性来定义了一个名为attribute_macro的属性宏。
 属性宏接受两个TokenStream参数：attr表示属性的输入，item表示应用该属性的代码块。在宏的处理逻辑中，我们可以根据attr和item对代码进行定制化处理，并返回一个TokenStream作为输出。
 
-#### 第三方实现 --> #[tokio::main]
+#### 第三方实现 -->tokio
+
+#[tokio::main] 转换
+
+```rust
+#[proc_macro_attribute]
+pub fn main(args: TokenStream, item: TokenStream) -> TokenStream {
+    entry::main(args.into(), item.into(), true).into()
+}
+
+```
 
 ```rust
 //  tokio-macros-2.4.0/src/entry.rs
@@ -274,7 +304,9 @@ fn parse_knobs(mut input: ItemFn, is_test: bool, config: FinalConfig) -> TokenSt
 }
 ```
 
-### 函数宏（function-like macro）
+### 类函数宏（function-like macro）
+
+类函数宏可以让我们定义像函数那样调用的宏
 
 ## 其他编程语言常见的元编程方式
 
@@ -298,18 +330,54 @@ https://github.com/dtolnay/cargo-expand
 $ cargo install cargo-expand
 ```
 
-### syn
+### syn--语法解析器。将输入的 token 流解析为 Rust AST
 
 syn 是一个对 TokenStream 解析的库，它提供了丰富的数据结构，对语法树中遇到的各种 Rust 语法都有支持。
 
 比如一个 Struct 结构，在 TokenStream 中，看到的就是一系列 TokenTree，而通过 syn 解析后，struct
 的各种属性以及它的各个字段，都有明确的类型。这样，我们可以很方便地通过模式匹配来选择合适的类型进行对应的处理。
 
+```rust
+ast_struct! {
+    /// Data structure sent to a `proc_macro_derive` macro.
+    ///
+    /// *This type is available only if Syn is built with the `"derive"` feature.*
+    #[cfg_attr(doc_cfg, doc(cfg(feature = "derive")))]
+    pub struct DeriveInput {
+        /// Attributes tagged on the whole struct or enum.
+        pub attrs: Vec<Attribute>,
+
+        /// 可见性说明符 of the struct or enum.
+        pub vis: Visibility,
+
+        /// 标识符（名称） of the struct or enum.
+        pub ident: Ident,
+
+        /// 泛型参数的信息，包括生命周期.
+        pub generics: Generics,
+
+        /// Data within the struct or enum.
+        pub data: Data,
+    }
+}
+```
+
 ### quote
 
-quote 是一个特殊的原语，它把代码转换成可以操作的数据（代码即数据）
+quote 是一个帮助我们执行 syn 反向操作的库。它帮助我们将 Rust 源代码转换为可以从宏输出的 token 流
+
+### proc-macro2
+
+标准库中有一个 proc-macro，但它提供的类型不能存在于过程宏之外。proc-macro2是一个标准库的包装器，使所有的内部类型在宏的上下文之外也能使用。
+这允许 syn 和 quote 不仅用于过程宏，还可以在普通 Rust 代码中使用，如果你有这样的需求的话。而且，如果我们想要对我们的宏或其扩展进行单元测试，这将被广泛使用
+
+### darling
+
+它有助于解析和处理宏的参数，否则由于需要从语法树中手动解析它，这将是一个繁琐的过程。darling 为我们提供了类似 serde
+的能力，可以将输入参数树自动解析为我们的参数结构体。它还帮助我们处理无效参数、必需参数等错误。
 
 ## 参考
 
-- [Rust 的声明宏机制](https://www.cnblogs.com/RioTian/p/18130417)
-- [Rust宏及声明式宏项目MacroKata](https://forsworns.github.io/zh/blogs/20210224/)
+- [Rust 声明宏机制](https://www.cnblogs.com/RioTian/p/18130417)
+- [Rust 宏及声明式宏项目 MacroKata](https://forsworns.github.io/zh/blogs/20210224/)
+- [Rust 过程宏初学者手册](https://www.freecodecamp.org/chinese/news/procedural-macros-in-rust/)

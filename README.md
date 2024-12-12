@@ -131,9 +131,9 @@
     - [1.1 vec! 实现](chapter15-macro/examples/macro1-declarativemacro.rs)
     - [1.2 声明宏的 hygiene:宏内部代码和宏上下文相互影响](chapter15-macro/examples/macro2-declarativemacro-hygiene.rs)
 - 2 过程宏（procedural macro）
-    - 2.1 派生宏（derive macro）
-    - 2.2 属性宏（attribute macro)
-    - 2.3 函数宏（function-like macro)
+    - [2.1 派生宏 (derive macro)](chapter15-macro/examples/macro3-derive-macro.rs)
+    - [2.2 属性宏 (attribute macro)](chapter15-macro/examples/macro4-attribute-macro.rs)
+    - [2.3 函数宏 (function-like macro)](chapter15-macro/examples/macro5-function-macro.rs)
 
 ## 参考
 

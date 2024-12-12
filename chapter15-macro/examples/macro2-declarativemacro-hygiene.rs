@@ -1,14 +1,12 @@
-#[macro_export]
 macro_rules! make_local {
     () => {
-        let local = 0;
+        let _local = 0;
     };
 }
-
 fn main() {
-    let local = 42;
+    let _local = 42;
     make_local!();
-    assert_eq!(local, 42);
+    assert_eq!(_local, 42);
 }
 
 /*

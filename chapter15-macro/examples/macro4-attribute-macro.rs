@@ -1,16 +1,16 @@
-use core::time;
-use std::thread;
+use chapter15_macro::log_duration;
 
-use chapter15_macro::log_bench;
-
-#[log_bench]
-fn test_my_macro() {
-    for num in 0..3 {
-        thread::sleep(time::Duration::from_secs(1));
-        println!("{}", num);
+#[log_duration]
+#[must_use]
+fn function_to_benchmark() -> u16 {
+    let mut counter = 0;
+    for _ in 0..u16::MAX {
+        counter += 1;
     }
+
+    counter
 }
 
 fn main() {
-    test_my_macro();
+    println!("{}", function_to_benchmark());
 }
